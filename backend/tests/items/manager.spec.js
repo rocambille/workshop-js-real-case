@@ -1,35 +1,36 @@
 // Import required dependencies
 const { database, tables } = require("../setup");
 
-// Test suite for the create method of ItemManager
-describe("Create item", () => {
-  it("should create an item successfully", async () => {
-    // Define a sample item for testing
-    const testItem = {
-      title: "Sample Item",
+// Test suite for the create method of PostManager
+describe("Create post", () => {
+  it("should create an post successfully", async () => {
+    // Define a sample post for testing
+    const testPost = {
+      title: "Sample Post",
+      content: "Sample Content",
     };
 
-    // Send a create request to the item table with a test item
-    const insertId = await tables.item.create(testItem);
+    // Send a create request to the post table with a test post
+    const insertId = await tables.post.create(testPost);
 
-    // Check if the newly added item exists in the database
+    // Check if the newly added post exists in the database
     const [rows] = await database.query(
-      "select * from item where id = ?",
+      "select * from post where id = ?",
       insertId
     );
 
-    const foundItem = rows[0];
+    const foundPost = rows[0];
 
     // Assertions
-    expect(foundItem).toBeDefined();
-    expect(foundItem.title).toBe(testItem.title);
+    expect(foundPost).toBeDefined();
+    expect(foundPost.title).toBe(testPost.title);
   });
 
   it("should throw when passing invalid object", async () => {
     // Thx https://jestjs.io/docs/asynchronous#asyncawait
 
-    // Send a create request to the item table with an empty object
-    const promise = tables.item.create({});
+    // Send a create request to the post table with an empty object
+    const promise = tables.post.create({});
 
     // Assertions
     await expect(promise).rejects.toThrow();

@@ -20,13 +20,14 @@ const seed = async () => {
     // Generating Seed Data
 
     // Optional: Truncate tables (remove existing data)
-    await database.query("truncate item");
+    await database.query("truncate post");
 
-    // Insert fake data into the 'item' table
+    // Insert fake data into the 'post' table
     for (let i = 0; i < 10; i += 1) {
       queries.push(
-        database.query("insert into item(title) values (?)", [
-          faker.lorem.word(),
+        database.query("insert into post(title, content) values (?, ?)", [
+          faker.lorem.words({ min: 3, max: 5 }),
+          faker.lorem.paragraph(),
         ])
       );
     }
