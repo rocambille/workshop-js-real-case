@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
 
+import PostById from "./pages/PostById";
 import Posts from "./pages/Posts";
 
 const router = createBrowserRouter([
@@ -17,6 +18,15 @@ const router = createBrowserRouter([
         element: <Posts />,
         loader: () => {
           return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/posts`);
+        },
+      },
+      {
+        path: "/posts/:id",
+        element: <PostById />,
+        loader: ({ params }) => {
+          return fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/posts/${params.id}`
+          );
         },
       },
     ],

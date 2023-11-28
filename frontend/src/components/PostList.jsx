@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { arrayOf } from "prop-types";
 
 import Post from "./Post";
@@ -7,7 +8,9 @@ function PostList({ list }) {
     <ul>
       {list.map((post) => (
         <li key={post.id}>
-          <Post data={post} />
+          <Link to={`/posts/${post.id}`}>
+            <Post data={post} />
+          </Link>
         </li>
       ))}
     </ul>
